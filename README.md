@@ -12,14 +12,33 @@ You have been handed this repo on a machine that holds the user's **reference
 edits** (their past finished work in Lightroom Classic). Your job is to **get
 ready to learn their style**, not to make new edits. Concretely:
 
-1. Read `MIGRATION.md` and do the one-time setup it describes (install the
-   Claude Bridge for Lightroom + this repo's `taste-transfer` skill).
-2. Confirm the bridge is live (`mcp__lightroom__ping`).
-3. Ask the user to **select ~5–10 of their finished reference edits** in
-   Lightroom (varied scenes help).
-4. Invoke the `taste-transfer` skill and follow it: extract each edit, judge it
+1. **Prepare the system first.** Work through `MIGRATION.md` **STEP 0** before
+   anything else — it installs the full toolset and grants the macOS permissions
+   the UI automation needs. Do not skip to the bridge; a half-prepared machine
+   fails silently.
+2. Then do STEP 1–3: clone, install the Claude Bridge for Lightroom (v2.1.0), and
+   install this repo's `taste-transfer` skill.
+3. Confirm the bridge is live (`mcp__lightroom__ping`) and `claude mcp list`
+   shows both `lightroom` and `open-computer-use` connected.
+4. Have the user pick examples — either **select ~5–10 finished reference edits**
+   in Lightroom, or ask to **scan all edited photos** (you drive the Lightroom
+   app with open-computer-use to build an "edited only" view, then the bridge
+   reads each one).
+5. Invoke the `taste-transfer` skill and follow it: extract each edit, judge it
    by eye, and synthesize the patterns into `profile/user-taste.md`.
-5. Commit the updated `profile/` and push. That profile is the deliverable.
+6. Commit the updated `profile/` and push. That profile is the deliverable.
+
+### Toolset this machine must have (full list in MIGRATION.md STEP 0)
+
+- **Base:** macOS, Adobe Lightroom Classic (with the user's catalogs), Claude
+  Code, git, Node.js, uv.
+- **MCP servers:** `lightroom` (the Claude Bridge — reads catalog edits) and
+  `open-computer-use` (sees/drives the Lightroom app window). `photoshop` is
+  optional, only for producing edits here. `acl-mcp` is NOT needed.
+- **macOS permissions:** open-computer-use needs Accessibility **and** Screen
+  Recording granted to the terminal / Claude Code app, or it can't scan the app.
+- **Skills:** this repo's `taste-transfer`, plus the bridge's `lightroom-bridge`
+  and `lightroom-bridge-pro`.
 
 Do **not** reset, overwrite, or re-edit the user's reference photos. You are
 reading their edits, not changing them. Everything you do through the bridge is

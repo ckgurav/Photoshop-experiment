@@ -29,10 +29,19 @@ image.
 1. `mcp__lightroom__ping` → confirm the bridge is connected. If it reports
    `stopped`/unreachable, tell the user: Lightroom → File → Plug-in Extras →
    Claude Bridge: Start (or reopen Lightroom). Do not proceed blind.
-2. `mcp__lightroom__list_selected`. If fewer than ~5 photos are selected, ask the
-   user to select **5–10 of their finished reference edits** in the Library grid
-   (varied scenes: bright vs. dim, tight portrait vs. wide group, a detail/decor
-   shot). More examples ⇒ higher-confidence profile.
+2. Pick the examples to learn from — ask the user which they want:
+   - **Curated:** they select **5–10 finished reference edits** in the Library
+     grid (varied scenes: bright vs. dim, tight portrait vs. wide group, a
+     detail/decor shot). Read them with `mcp__lightroom__list_selected`.
+   - **Scan all edits:** use `open-computer-use` to drive the Lightroom app —
+     set the Library filter to edited-only (or make a smart collection where
+     "Has Adjustments" is true), Select All, then read the selection with
+     `list_selected`. This covers the whole catalog; expect more photos and more
+     time. If open-computer-use isn't available or lacks macOS Accessibility /
+     Screen Recording permission, fall back to curated selection and tell the
+     user why.
+   The exact edit *values* always come from the bridge (`get_develop_settings`),
+   never from screen-scraping — computer-use only navigates/selects.
 
 Never reset, re-edit, or overwrite the reference photos. You are reading.
 
